@@ -5,12 +5,14 @@ import Section from "./Section.jsx";
 
 export default function CoreConcepts(){
 
-  let child = <ul>
-
-                {CORE_CONCEPTS.map((item) => <CoreConcept key = {item.title}{...item} />)}
-
-            </ul>
+  
     return (
-      <Section title="Core Concepts" id="core-concepts">{child}</Section>  
+      <Section title="Core Concepts" id="core-concepts">
+        <ul>
+
+          {CORE_CONCEPTS.map((item) => <CoreConcept key = {item.title}{...item} />)}
+
+        </ul>
+      </Section>  
     );
 }
