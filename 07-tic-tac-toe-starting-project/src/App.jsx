@@ -5,7 +5,12 @@ import { useState } from "react"
 import { WINNING_COMBINATIONS } from "./winning-combinations"
 import GameOver from "./components/GameOver"
 
-const initialGameBoard=[
+const PLAYERS = {
+  X: "Player 1",
+  O: "Player 2"
+}
+
+const INITIAL_GAMEBOARD=[
   [null, null, null],
   [null, null, null],
   [null, null, null]
@@ -19,18 +24,39 @@ function derivedActivePlayer (gameTurns){
   return activePlayer;
 }
 
+function deriveWinner(gameBoard,players){
+  let winner ;
 
-function App() {
-  
-  const [gameTurns, setGameTurns] = useState([])
+  for (const combinations of WINNING_COMBINATIONS){
+    const firstSquareSymbol = gameBoard[combinations[0].row][combinations[0].col];
+    const secondSquareSymbol = gameBoard[combinations[1].row][combinations[1].col];
+    const thirdSquareSymbol = gameBoard[combinations[2].row][combinations[2].col];
 
-  let activePlayer = derivedActivePlayer(gameTurns);
+    if(firstSquareSymbol && firstSquareSymbol===secondSquareSymbol && firstSquareSymbol===thirdSquareSymbol){
+      winner = players[firstSquareSymbol];
+      break;
+    }
+  }
+  return winner;
+}
 
-  
-  let gameBoard = [...initialGameBoard.map(row=>[...row])];
+function deriveGameBoard(gameTurns){
+  let gameBoard = [...INITIAL_GAMEBOARD.map(row=>[...row])];
     for (const turn of gameTurns){
         gameBoard[turn.square.row][turn.square.col] = turn.player;
     }
+    return gameBoard;
+}
+
+export default function App() {
+  
+  const [players, setPlayers] = useState(PLAYERS);
+  const [gameTurns, setGameTurns] = useState([])
+
+  const activePlayer = derivedActivePlayer(gameTurns);
+  const gameBoard = deriveGameBoard(gameTurns);
+  const winner = deriveWinner(gameBoard,players);
+  const hasDraw = gameTurns.length === 9 && !winner;
 
   function handleSelectSquare(rowIndex, colIndex){
     setGameTurns((prevTruns)=>{
@@ -49,31 +75,25 @@ function App() {
     })
   }
 
-let winner = null;
-
-  for (const combinations of WINNING_COMBINATIONS){
-    const firstSquareSymbol = gameBoard[combinations[0].row][combinations[0].col];
-    const secondSquareSymbol = gameBoard[combinations[1].row][combinations[1].col];
-    const thirdSquareSymbol = gameBoard[combinations[2].row][combinations[2].col];
-
-    if(firstSquareSymbol && firstSquareSymbol===secondSquareSymbol && firstSquareSymbol===thirdSquareSymbol){
-      winner = firstSquareSymbol;
-      break;
-    }
-  }
-
-  const hasDraw = gameTurns.length === 9 && !winner;
-
   function handleRestartGame(){
     setGameTurns([]);
+  }
+
+  function handleNameChange(symbol, newName){
+    setPlayers(prevPlayers =>{
+     return {
+      ...prevPlayers,
+      [symbol]:newName
+     }
+    })
   }
 
   return (
     <main>
       <div id="game-container">
         <ol id="players" className="highlight-player">
-          <Player initialName="Player 1" symbol="X" isActive={activePlayer==="X"}/>
-          <Player initialName="Player 2" symbol="O" isActive={activePlayer==="O"} />
+          <Player initialName={PLAYERS.X} symbol="X" isActive={activePlayer==="X"} onNameChange={handleNameChange}/>
+          <Player initialName={PLAYERS.Y} symbol="O" isActive={activePlayer==="O"} onNameChange={handleNameChange} />
         </ol>
         {(winner || hasDraw) && <GameOver winner={winner} handleRestartGame={handleRestartGame} />}
         <GameBoard 
@@ -87,4 +107,4 @@ let winner = null;
   )
 }
 
-export default App
+
