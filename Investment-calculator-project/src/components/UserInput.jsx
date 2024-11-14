@@ -1,20 +1,14 @@
-import { useState } from "react"
 import Field from "./Field"
 
-export default function UserInput() {
+export default function UserInput({userInputs, setUserInputs}) {
 
-    const [userInputs, setUserInputs] = useState({
-        initialInvestment: 10000,
-        annualInvestment: 1000,
-        expectedReturn: 10,
-        duration: 10
-    })
+    
     
     function handleUserInput(identifier, value) {
         setUserInputs((prevUserInputs) => {
             return {
                 ...prevUserInputs,
-                [identifier]: value
+                [identifier]: +value
             }
         })
         console.log("User input: ", userInputs)

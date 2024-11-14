@@ -93,7 +93,7 @@ export default function App() {
       <div id="game-container">
         <ol id="players" className="highlight-player">
           <Player initialName={PLAYERS.X} symbol="X" isActive={activePlayer==="X"} onNameChange={handleNameChange}/>
-          <Player initialName={PLAYERS.Y} symbol="O" isActive={activePlayer==="O"} onNameChange={handleNameChange} />
+          <Player initialName={PLAYERS.O} symbol="O" isActive={activePlayer==="O"} onNameChange={handleNameChange} />
         </ol>
         {(winner || hasDraw) && <GameOver winner={winner} handleRestartGame={handleRestartGame} />}
         <GameBoard 
