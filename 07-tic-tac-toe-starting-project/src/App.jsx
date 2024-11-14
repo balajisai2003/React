@@ -3,6 +3,7 @@ import GameBoard from "./components/GameBoard"
 import Log from "./components/log"
 import { useState } from "react"
 import { WINNING_COMBINATIONS } from "./winning-combinations"
+import GameOver from "./components/GameOver"
 
 const initialGameBoard=[
   [null, null, null],
@@ -26,7 +27,7 @@ function App() {
   let activePlayer = derivedActivePlayer(gameTurns);
 
   
-  let gameBoard = initialGameBoard;
+  let gameBoard = [...initialGameBoard.map(row=>[...row])];
     for (const turn of gameTurns){
         gameBoard[turn.square.row][turn.square.col] = turn.player;
     }
@@ -61,6 +62,12 @@ let winner = null;
     }
   }
 
+  const hasDraw = gameTurns.length === 9 && !winner;
+
+  function handleRestartGame(){
+    setGameTurns([]);
+  }
+
   return (
     <main>
       <div id="game-container">
@@ -68,7 +75,7 @@ let winner = null;
           <Player initialName="Player 1" symbol="X" isActive={activePlayer==="X"}/>
           <Player initialName="Player 2" symbol="O" isActive={activePlayer==="O"} />
         </ol>
-        <h2>{winner ? `Player ${winner} wins!` : "Tic Tac Toe"}</h2>
+        {(winner || hasDraw) && <GameOver winner={winner} handleRestartGame={handleRestartGame} />}
         <GameBoard 
         onSelectSquare={handleSelectSquare} 
         gameBoard={gameBoard}
