@@ -4,7 +4,12 @@ import { calculateInvestmentResults, formatter } from "../util/investment"
 export default function Results({Input}){
 
     const resultsdata = calculateInvestmentResults(Input)
-    const initialInvestment = Input.initialInvestment;
+
+    if(resultsdata.length === 0){
+        return <p className="center">Invalid input</p>
+    }
+
+    const initialInvestment = resultsdata[0].valueEndOfYear - resultsdata[0].annualInvestment- resultsdata[0].interest;
     console.log(resultsdata)
     return (
         <table id="result">
