@@ -69,7 +69,8 @@ function App() {
 
   const cntxVal = {
     items : shoppingCart.items,
-    addItemToCart : handleAddItemToCart
+    addItemToCart : handleAddItemToCart,
+    updateItemQunatity : handleUpdateCartItemQuantity
   }
 
   return (
