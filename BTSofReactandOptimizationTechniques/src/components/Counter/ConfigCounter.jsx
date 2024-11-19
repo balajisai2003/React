@@ -3,7 +3,7 @@ import { log } from '../../log.js';
 
 
 
-export default function ConfigCounter(){
+export default function ConfigCounter({onClick}){
 
     log('<ConfigCounter /> rendered', 1);
 
@@ -14,6 +14,14 @@ export default function ConfigCounter(){
     setEnteredNumber(+event.target.value);
   }
 
-  return <input type="number" onChange={handleChange} value={enteredNumber} />
- 
+  return (
+    <>
+    <section id="configure-counter">
+      <h2>Set Counter</h2>
+      <input type="number" onChange={handleChange} value={enteredNumber} />
+      <button onClick={()=>{onClick(enteredNumber)}}>Set</button>
+    </section>
+  </>
+  
+  );
 }

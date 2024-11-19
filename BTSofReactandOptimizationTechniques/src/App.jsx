@@ -12,22 +12,18 @@ function App() {
 
 
 
-  function handleSetClick() {
+  function handleSetClick(enteredNumber) {
     setChosenCount(enteredNumber);
-    setEnteredNumber(0);
   }
 
   return (
     <>
       <Header />
       <main>
-        <section id="configure-counter">
-          <h2>Set Counter</h2>
-          <ConfigCounter />
-          <button onClick={handleSetClick}>Set</button>
-        </section>
+        
+        <ConfigCounter onClick = {handleSetClick}/>
+          
         <Counter initialCount={chosenCount} />
-        <Counter initialCount={0} />
       </main>
     </>
   );
