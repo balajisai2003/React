@@ -27,6 +27,7 @@ function App() {
           <button onClick={handleSetClick}>Set</button>
         </section>
         <Counter initialCount={chosenCount} />
+        <Counter initialCount={0} />
       </main>
     </>
   );
