@@ -8,6 +8,10 @@ import AvailablePlaces from './components/AvailablePlaces.jsx';
 import {updateUserPlaces, fetchUserPlaces} from './http.js';
 import ErrorPage from './components/ErrorPage.jsx';
 
+
+
+// CUSTOM HOOKS
+
 function App() {
   const selectedPlace = useRef();
 
