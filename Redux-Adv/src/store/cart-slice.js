@@ -24,6 +24,7 @@ const cartSlice = createSlice({
                 existingItem.totalPrice = existingItem.totalPrice + newItem.price;
             }
             console.log(JSON.parse(JSON.stringify(state.items)));// Log the items array
+            state.totalQuantity++;
              
         },
         removeItemFromCart(state, action){
