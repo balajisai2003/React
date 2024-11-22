@@ -4,10 +4,15 @@ import { authActions } from '../store/storeIndex';
 const Auth = () => {
 
   const dispatch = useDispatch();
+  const loginHandler = (event) => {
+    event.preventDefault();
+    dispatch(authActions.login());
+  }
+
   return (
     <main className={classes.auth}>
       <section>
-        <form>
+        <form onSubmit={loginHandler}>
           <div className={classes.control}>
             <label htmlFor='email'>Email</label>
             <input type='email' id='email' />
@@ -16,7 +21,7 @@ const Auth = () => {
             <label htmlFor='password'>Password</label>
             <input type='password' id='password' />
           </div>
-          <button onClick={()=>{dispatch(authActions.login())}}>Login</button>
+          <button>Login</button>
         </form>
       </section>
     </main>
