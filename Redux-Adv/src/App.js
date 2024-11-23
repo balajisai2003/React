@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { Fragment } from 'react';
 import Notification from './components/UI/Notification';
-import { sendCartData } from './store/cart-slice';
+import { fetchCartData, sendCartData } from './store/cart-actions';
 
 let isInitial = true;
 
@@ -15,6 +15,9 @@ function App() {
   const dispatch = useDispatch();
   const notification = useSelector(({ui})=>ui.notification);
 
+  useEffect(()=>{
+    dispatch(fetchCartData());
+  },[dispatch])
 
   useEffect(()=>{
     // const sendCartData = async () =>{
@@ -48,12 +51,13 @@ function App() {
     //     message: 'Sending cart data failed!'
     //   }));
     // });
-    
     if(isInitial){
       isInitial = false;
       return;
     }
-    dispatch(sendCartData(cart));
+    if(cart.changes){
+      dispatch(sendCartData(cart));
+    } 
   },[cart, dispatch]);
 
   return (
