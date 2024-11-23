@@ -1,0 +1,9 @@
+{
+    "cart":[
+        {
+            "id":1,
+            "items":[],
+            "totalQuantity":0
+        }
+    ]
+}
