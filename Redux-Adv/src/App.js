@@ -3,9 +3,9 @@ import Layout from './components/Layout/Layout';
 import Products from './components/Shop/Products';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { uiActions } from './store/ui-slice';
 import { Fragment } from 'react';
 import Notification from './components/UI/Notification';
+import { sendCartData } from './store/cart-slice';
 
 let isInitial = true;
 
@@ -17,37 +17,43 @@ function App() {
 
 
   useEffect(()=>{
-    const sendCartData = async () =>{
-      dispatch(uiActions.showNtification({
-        status: 'pending',
-        title: 'Sending...',
-        message: 'Sending cart data!'
-      }));
-      const response = await fetch('https://buhahah-f4996-default-rtdb.firebaseio.com/cart.json',{
-        method: 'PUT',
-        body: JSON.stringify(cart)
-      });
-      if(!response.ok){
-        throw new Error('Sending cart data failed!');
-      }
-      dispatch(uiActions.showNtification({
-        status: 'success',
-        title: 'Success!',
-        message: 'Sent cart data successfully!'
-      }));
-    };
+    // const sendCartData = async () =>{
+    //   dispatch(uiActions.showNtification({
+    //     status: 'pending',
+    //     title: 'Sending...',
+    //     message: 'Sending cart data!'
+    //   }));
+    //   const response = await fetch('https://buhahah-f4996-default-rtdb.firebaseio.com/cart.json',{
+    //     method: 'PUT',
+    //     body: JSON.stringify(cart)
+    //   });
+    //   if(!response.ok){
+    //     throw new Error('Sending cart data failed!');
+    //   }
+    //   dispatch(uiActions.showNtification({
+    //     status: 'success',
+    //     title: 'Success!',
+    //     message: 'Sent cart data successfully!'
+    //   }));
+    // };
 
+    // if(isInitial){
+    //   isInitial = false;
+    //   return;
+    // }
+    // sendCartData().catch((error)=>{
+    //   dispatch(uiActions.showNtification({
+    //     status: 'error',
+    //     title: 'Error!',
+    //     message: 'Sending cart data failed!'
+    //   }));
+    // });
+    
     if(isInitial){
       isInitial = false;
       return;
     }
-    sendCartData().catch((error)=>{
-      dispatch(uiActions.showNtification({
-        status: 'error',
-        title: 'Error!',
-        message: 'Sending cart data failed!'
-      }));
-    });
+    dispatch(sendCartData(cart));
   },[cart, dispatch]);
 
   return (
