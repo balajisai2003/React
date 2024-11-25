@@ -6,7 +6,7 @@ function ProductDetailPage(){
         <div>
             <h1>Product Detail Page</h1>
             <p>Product ID: {params.productId}</p>
-            <p><Link to="..">Back</Link></p>
+            <p><Link to=".." relative='path'>Back</Link></p>
         </div>
     )
 }
