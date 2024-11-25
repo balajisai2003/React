@@ -3,10 +3,13 @@ import EventsList from '../components/EventsList';
 
 function EventsPage() {
 
-    const events = useLoaderData();
+    const data = useLoaderData();
+  if(data.isError){
+    return <p>{data.message}</p>
+  }
   return (
     <>
-       <EventsList events={events} />
+       <EventsList events={data.events} />
     </>
   );
 }
@@ -14,10 +17,9 @@ function EventsPage() {
 export async function loader() {
     const response = await fetch('http://localhost:8080/events');
     if (!response.ok) {
-        return {events: []};
+        return {isError: true, message: 'Could not load events'};
     }
-    const resData = await response.json();
-    return resData.events;
+    return response;
 }
 
 export default EventsPage;
