@@ -6,14 +6,15 @@ function MainNavigation(){
             <ul className={classes.list}>
                 <li>
                     <NavLink 
-                        to="/Home" 
+                        to="" 
                         className={({isActive})=>isActive ? classes.active:undefined}
+                        end
                         >Home
                     </NavLink>
                 </li>
                 <li>
                     <NavLink 
-                        to="/products" 
+                        to="Products" 
                         className={({isActive})=>isActive ? classes.active:undefined}
                         >Products
                     </NavLink>
