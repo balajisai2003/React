@@ -1,3 +1,4 @@
+import { redirect } from 'react-router-dom';
 import EventForm from '../components/EventForm'
 
 export default function NewEventPage() {
@@ -24,5 +25,5 @@ export async function newEventAction({request, params}){
     if (!response.ok) {
         throw new Error('Something went wrong');
     }
-    
+    return redirect('/events');  
 }
