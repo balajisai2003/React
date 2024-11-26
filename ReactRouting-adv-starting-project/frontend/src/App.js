@@ -28,9 +28,10 @@ import ErrorPage from './pages/ErrorPage';
 import HomePage from './pages/HomePage';
 import EventsPage,{loader as EventsLoader} from './pages/Events';
 import EventDetailPage, {EventDetailLoader,deleteEventAction} from './pages/EventDetailPage';
-import NewEventPage,{newEventAction} from './pages/NewEventPage';
+import NewEventPage from './pages/NewEventPage';
 import EditEventPage from './pages/EditEventPage';
 import EventsRoot from './pages/EventsRoot';
+import {action as manipulateEventAction} from './components/EventForm';
 
 function App() {
 
@@ -43,11 +44,11 @@ function App() {
             {path:':eventId',id:'event-detail', loader: EventDetailLoader, 
               children:[
               {index:true, element: <EventDetailPage/>, action:deleteEventAction},
-              {path:'edit', element: <EditEventPage/>}
+              {path:'edit', element: <EditEventPage/>, action:manipulateEventAction}
             ]
             },
             
-            {path:'new', element: <NewEventPage/>, action:newEventAction},
+            {path:'new', element: <NewEventPage/>, action:manipulateEventAction},
         ]},
         
       ]
