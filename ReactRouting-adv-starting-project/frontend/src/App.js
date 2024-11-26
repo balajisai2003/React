@@ -32,6 +32,7 @@ import NewEventPage from './pages/NewEventPage';
 import EditEventPage from './pages/EditEventPage';
 import EventsRoot from './pages/EventsRoot';
 import {action as manipulateEventAction} from './components/EventForm';
+import NewsletterPage, { action as newsletterAction } from './pages/Newsletter';
 
 function App() {
 
@@ -50,6 +51,11 @@ function App() {
             
             {path:'new', element: <NewEventPage/>, action:manipulateEventAction},
         ]},
+        {
+          path: 'newsletter',
+          element: <NewsletterPage />,
+          action: newsletterAction,
+        },
         
       ]
     }
