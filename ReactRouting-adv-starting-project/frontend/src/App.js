@@ -28,7 +28,7 @@ import ErrorPage from './pages/ErrorPage';
 import HomePage from './pages/HomePage';
 import EventsPage,{loader as EventsLoader} from './pages/Events';
 import EventDetailPage, {EventDetailLoader} from './pages/EventDetailPage';
-import NewEventPage from './pages/NewEventPage';
+import NewEventPage,{newEventAction} from './pages/NewEventPage';
 import EditEventPage from './pages/EditEventPage';
 import EventsRoot from './pages/EventsRoot';
 
@@ -47,7 +47,7 @@ function App() {
             ]
             },
             
-            {path:'new', element: <NewEventPage/>},
+            {path:'new', element: <NewEventPage/>, action:newEventAction},
         ]},
         
       ]
