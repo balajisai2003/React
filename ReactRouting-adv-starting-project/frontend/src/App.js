@@ -46,9 +46,8 @@ function App() {
               children:[
               {index:true, element: <EventDetailPage/>, action:deleteEventAction},
               {path:'edit', element: <EditEventPage/>, action:manipulateEventAction}
-            ]
+              ]
             },
-            
             {path:'new', element: <NewEventPage/>, action:manipulateEventAction},
         ]},
         {
