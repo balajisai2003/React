@@ -40,9 +40,14 @@ function App() {
         {index:true, element: <HomePage/>},
         {path:'events', element: <EventsRoot/>, children:[
             {index:true, element: <EventsPage/>, loader: EventsLoader},
-            {path:':eventId', element: <EventDetailPage/>, loader: EventDetailLoader},
+            {path:':eventId',id:'event-detail', loader: EventDetailLoader, 
+              children:[
+              {index:true, element: <EventDetailPage/>},
+              {path:'edit', element: <EditEventPage/>}
+            ]
+            },
+            
             {path:'new', element: <NewEventPage/>},
-            {path:':eventId/edit', element: <EditEventPage/>}
         ]},
         
       ]
