@@ -84,6 +84,7 @@ export default function EditEvent() {
 }
 
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function loader({params}){
   return queryClient.fetchQuery({
     queryKey: ['events', params.id],
