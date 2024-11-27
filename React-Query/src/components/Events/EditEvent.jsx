@@ -4,7 +4,7 @@ import Modal from '../UI/Modal.jsx';
 import EventForm from './EventForm.jsx';
 import LoadingIndicator from '../UI/LoadingIndicator.jsx';
 import ErrorBlock from '../UI/ErrorBlock.jsx';
-import { fetchEvent, updateEvent } from '../../util/http.js';
+import { fetchEvent, updateEvent, queryClient } from '../../util/http.js';
 
 export default function EditEvent() {
   const params = useParams();
@@ -18,7 +18,20 @@ export default function EditEvent() {
 
   const {mutate} = useMutation({
     mutationFn: updateEvent,
-
+    onMutate: async (data)=>{
+      const neewEvent = data.event;
+      await queryClient.cancelQueries({queryKey:['events', params.id]});
+      const previousEvent = queryClient.getQueryData(['events', params.id]);
+      queryClient.setQueryData(['events', params.id], neewEvent);
+      return {previousEvent};
+    },
+    onError: (error, data, context)=>{
+      queryClient.setQueryData(['events', params.id], context.previousEvent);
+    },
+    onSettled: () => {
+      // Refetch the event data after mutation is completed to ensure the page reflects the latest data.
+      queryClient.invalidateQueries(['events', params.id]);
+    },
   });
 
   
