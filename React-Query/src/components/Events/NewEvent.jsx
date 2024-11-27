@@ -4,13 +4,17 @@ import { createNewEvent } from '../../util/http.js';
 import Modal from '../UI/Modal.jsx';
 import EventForm from './EventForm.jsx';
 import ErrorBlock from '../UI/ErrorBlock.jsx';
+import { queryClient } from '../../util/http.js';
 
 export default function NewEvent() {
   const navigate = useNavigate();
 
   const {mutate, isPending, isError, error} = useMutation({
     mutationFn: createNewEvent,
-
+    onSuccess:()=>{
+      queryClient.invalidateQueries({queryKey:['events'], exact: true});
+      navigate('/events')
+    }
   })
 
   function handleSubmit(formData) {
@@ -32,7 +36,12 @@ export default function NewEvent() {
           </>
         }
       </EventForm>
-      {isError && <ErrorBlock title='Failed to create event' message = {error.info?.message || 'Failed to create an event'}/>}
+      {isError && 
+        <ErrorBlock 
+          title='Failed to create event' 
+          message = {error.info?.message || 'Failed to create an event'}
+        />
+      }
     </Modal>
   );
 }
