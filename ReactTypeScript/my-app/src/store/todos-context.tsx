@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import Todo from "../models/todo";
 
-const TodosContext = createContext<{
+export const TodosContext = createContext<{
     items: Todo[],
     addTodo: (text: string) => void,
     removeTodo: (id: string) => void
@@ -16,9 +16,10 @@ const TodosContext = createContext<{
 
 
 
+
 const TodosContextProvider: React.FC<{children: ReactNode}> = (props) => {
 
-    const [todos, setTodos] = useState<Todo[]>([new Todo ("Learn React"), new Todo ("Learn TypeScript")]);
+    const [todos, setTodos] = useState<Todo[]>([]);
 
     const addTodoHandler=(text:string)=>{
       const newTodo = new Todo (text);
